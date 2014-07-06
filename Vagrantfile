@@ -93,8 +93,8 @@ Vagrant.configure("2") do |config|
     config.vm.usable_port_range = 8081..8100
 
     # Created a shared folder to dspace and dspace-src
-    config.vm.synced_folder "dspace/", "/home/vagrant/dspace"
-    config.vm.synced_folder "dspace-src/", "/home/vagrant/dspace-src"
+    config.vm.synced_folder "dspace/", "/home/vagrant/dspace", create: true
+    config.vm.synced_folder "dspace-src/", "/home/vagrant/dspace-src", create: true
 
     # Turn on SSH forwarding (so that 'vagrant ssh' has access to your local SSH keys, and you can use your local SSH keys to access GitHub, etc.)
     config.ssh.forward_agent = true
