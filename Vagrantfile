@@ -33,8 +33,8 @@ java = "7"
 vb_name = "dspace-dev"
 
 # How much memory to provide to VirtualBox (in MB)
-# Provide 2GB of memory by default
-vb_memory = 2048  
+# Provide 1GB of memory by default
+vb_memory = 1024
 
 ####################################  
 
@@ -84,9 +84,17 @@ Vagrant.configure("2") do |config|
     config.vm.network :forwarded_port, guest: 8080, host: 8080,
       auto_correct: true
 
+    # port to use database PostgreSQL
+    config.vm.network :forwarded_port, guest: 5432, host: 5432,
+      auto_correct: true
+
     # If a port collision occurs (i.e. port 8080 on local machine is in use),
     # then tell Vagrant to use the next available port between 8081 and 8100
     config.vm.usable_port_range = 8081..8100
+
+    # Created a shared folder to dspace and dspace-src
+    config.vm.synced_folder "dspace/", "/home/vagrant/dspace"
+    config.vm.synced_folder "dspace-src/", "/home/vagrant/dspace-src"
 
     # Turn on SSH forwarding (so that 'vagrant ssh' has access to your local SSH keys, and you can use your local SSH keys to access GitHub, etc.)
     config.ssh.forward_agent = true
